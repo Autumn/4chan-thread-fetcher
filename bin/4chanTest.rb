@@ -1,14 +1,8 @@
-require "net/http"
-require "uri"
-require"json"
-
-uri = URI.parse('http://a.4cdn.org/a/catalog.json')
-http = Net::HTTP.new(uri.host, uri.port)
-request = Net::HTTP::Get.new(uri.request_uri)
-response = http.request(request)
+require "open-uri"
+require "json"
 
 somefile = File.open("data.txt", "w")
-parsedJSON = JSON.parse(response.body)
+parsedJSON = JSON.parse open('http://a.4cdn.org/a/catalog.json').read
 
 sakiThreads = [];
 parsedJSON.each do |obj|
